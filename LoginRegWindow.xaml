@@ -1,0 +1,22 @@
+﻿<Window x:Class="HaliSahaWPF.LoginRegWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HaliSahaWPF"
+        mc:Ignorable="d"
+        Title="HALI SAHA YÖNETİM SİSTEMİ" Height="450" Width="800">
+    <DockPanel>
+        <StackPanel Background="Gray" MinWidth="100">
+            <Button Name="Login" Content="Giriş Yap" Height="50" Background="#FAA00C" Foreground="White" FontWeight="DemiBold" Click="Login_Click"/>
+            <Button Name="Register" Content="Kayıt Ol" Height="50" Background="#FAA00C" Foreground="White" FontWeight="DemiBold" Click="Register_Click"/>
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Background="White" Grid.Row="0" Name="LoginRegFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </DockPanel>
+</Window>

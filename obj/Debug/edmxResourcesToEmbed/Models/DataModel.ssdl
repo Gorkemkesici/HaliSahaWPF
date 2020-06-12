@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HaliSahaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="KullaniciId" />
+    </Key>
+    <Property Name="KullaniciId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="100" />
+    <Property Name="KullaniciSoyadi" Type="nvarchar" MaxLength="100" />
+    <Property Name="KullaniciEmail" Type="nvarchar" MaxLength="100" />
+    <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="OdemeIslemleri">
+    <Key>
+      <PropertyRef Name="OdemeIslemiId" />
+    </Key>
+    <Property Name="OdemeIslemiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SahaId" Type="int" />
+    <Property Name="RezId" Type="int" />
+    <Property Name="KullaniciId" Type="int" />
+  </EntityType>
+  <EntityType Name="Rezervasyon">
+    <Key>
+      <PropertyRef Name="RezID" />
+    </Key>
+    <Property Name="RezID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RezNotu" Type="nvarchar" MaxLength="100" />
+    <Property Name="RezDate" Type="int" />
+    <Property Name="SahaId" Type="int" />
+  </EntityType>
+  <EntityType Name="Sahalar">
+    <Key>
+      <PropertyRef Name="SahaId" />
+    </Key>
+    <Property Name="SahaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SahaAdı" Type="nvarchar" MaxLength="100" />
+    <Property Name="SahaFiyati" Type="money" />
+    <Property Name="SahaKapasitesi" Type="int" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <Association Name="FK_OdemeIslemleri_KullaniciId">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+    <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciId" />
+      </Principal>
+      <Dependent Role="OdemeIslemleri">
+        <PropertyRef Name="KullaniciId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OdemeIslemleri_RezId">
+    <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="0..1" />
+    <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rezervasyon">
+        <PropertyRef Name="RezID" />
+      </Principal>
+      <Dependent Role="OdemeIslemleri">
+        <PropertyRef Name="RezId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OdemeIslemleri_SahaId">
+    <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+    <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sahalar">
+        <PropertyRef Name="SahaId" />
+      </Principal>
+      <Dependent Role="OdemeIslemleri">
+        <PropertyRef Name="SahaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rezervasyon_SahaId">
+    <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+    <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sahalar">
+        <PropertyRef Name="SahaId" />
+      </Principal>
+      <Dependent Role="Rezervasyon">
+        <PropertyRef Name="SahaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HaliSahaDBModelStoreContainer">
+    <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OdemeIslemleri" EntityType="Self.OdemeIslemleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rezervasyon" EntityType="Self.Rezervasyon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sahalar" EntityType="Self.Sahalar" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_OdemeIslemleri_KullaniciId" Association="Self.FK_OdemeIslemleri_KullaniciId">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OdemeIslemleri_RezId" Association="Self.FK_OdemeIslemleri_RezId">
+      <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+      <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OdemeIslemleri_SahaId" Association="Self.FK_OdemeIslemleri_SahaId">
+      <End Role="Sahalar" EntitySet="Sahalar" />
+      <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rezervasyon_SahaId" Association="Self.FK_Rezervasyon_SahaId">
+      <End Role="Sahalar" EntitySet="Sahalar" />
+      <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

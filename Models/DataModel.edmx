@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HaliSahaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciId" />
+          </Key>
+          <Property Name="KullaniciId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="100" />
+          <Property Name="KullaniciSoyadi" Type="nvarchar" MaxLength="100" />
+          <Property Name="KullaniciEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OdemeIslemleri">
+          <Key>
+            <PropertyRef Name="OdemeIslemiId" />
+          </Key>
+          <Property Name="OdemeIslemiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SahaId" Type="int" />
+          <Property Name="RezId" Type="int" />
+          <Property Name="KullaniciId" Type="int" />
+        </EntityType>
+        <EntityType Name="Rezervasyon">
+          <Key>
+            <PropertyRef Name="RezID" />
+          </Key>
+          <Property Name="RezID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RezNotu" Type="nvarchar" MaxLength="100" />
+          <Property Name="RezDate" Type="int" />
+          <Property Name="SahaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Sahalar">
+          <Key>
+            <PropertyRef Name="SahaId" />
+          </Key>
+          <Property Name="SahaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SahaAdı" Type="nvarchar" MaxLength="100" />
+          <Property Name="SahaFiyati" Type="money" />
+          <Property Name="SahaKapasitesi" Type="int" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK_OdemeIslemleri_KullaniciId">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="KullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdemeIslemleri_RezId">
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="RezID" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="RezId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdemeIslemleri_SahaId">
+          <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahalar">
+              <PropertyRef Name="SahaId" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="SahaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervasyon_SahaId">
+          <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahalar">
+              <PropertyRef Name="SahaId" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="SahaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HaliSahaDBModelStoreContainer">
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OdemeIslemleri" EntityType="Self.OdemeIslemleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervasyon" EntityType="Self.Rezervasyon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sahalar" EntityType="Self.Sahalar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OdemeIslemleri_KullaniciId" Association="Self.FK_OdemeIslemleri_KullaniciId">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdemeIslemleri_RezId" Association="Self.FK_OdemeIslemleri_RezId">
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdemeIslemleri_SahaId" Association="Self.FK_OdemeIslemleri_SahaId">
+            <End Role="Sahalar" EntitySet="Sahalar" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervasyon_SahaId" Association="Self.FK_Rezervasyon_SahaId">
+            <End Role="Sahalar" EntitySet="Sahalar" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HaliSahaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciId" />
+          </Key>
+          <Property Name="KullaniciId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSoyadi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OdemeIslemleris" Relationship="Self.FK_OdemeIslemleri_KullaniciId" FromRole="Kullanicilar" ToRole="OdemeIslemleri" />
+        </EntityType>
+        <EntityType Name="OdemeIslemleri">
+          <Key>
+            <PropertyRef Name="OdemeIslemiId" />
+          </Key>
+          <Property Name="OdemeIslemiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SahaId" Type="Int32" />
+          <Property Name="RezId" Type="Int32" />
+          <Property Name="KullaniciId" Type="Int32" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.FK_OdemeIslemleri_KullaniciId" FromRole="OdemeIslemleri" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Rezervasyon" Relationship="Self.FK_OdemeIslemleri_RezId" FromRole="OdemeIslemleri" ToRole="Rezervasyon" />
+          <NavigationProperty Name="Sahalar" Relationship="Self.FK_OdemeIslemleri_SahaId" FromRole="OdemeIslemleri" ToRole="Sahalar" />
+        </EntityType>
+        <EntityType Name="Rezervasyon">
+          <Key>
+            <PropertyRef Name="RezID" />
+          </Key>
+          <Property Name="RezID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RezNotu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RezDate" Type="Int32" />
+          <Property Name="SahaId" Type="Int32" />
+          <NavigationProperty Name="OdemeIslemleris" Relationship="Self.FK_OdemeIslemleri_RezId" FromRole="Rezervasyon" ToRole="OdemeIslemleri" />
+          <NavigationProperty Name="Sahalar" Relationship="Self.FK_Rezervasyon_SahaId" FromRole="Rezervasyon" ToRole="Sahalar" />
+        </EntityType>
+        <EntityType Name="Sahalar">
+          <Key>
+            <PropertyRef Name="SahaId" />
+          </Key>
+          <Property Name="SahaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SahaAdı" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SahaFiyati" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SahaKapasitesi" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+          <NavigationProperty Name="OdemeIslemleris" Relationship="Self.FK_OdemeIslemleri_SahaId" FromRole="Sahalar" ToRole="OdemeIslemleri" />
+          <NavigationProperty Name="Rezervasyons" Relationship="Self.FK_Rezervasyon_SahaId" FromRole="Sahalar" ToRole="Rezervasyon" />
+        </EntityType>
+        <Association Name="FK_OdemeIslemleri_KullaniciId">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciId" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="KullaniciId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdemeIslemleri_RezId">
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="RezID" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="RezId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OdemeIslemleri_SahaId">
+          <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+          <End Role="OdemeIslemleri" Type="Self.OdemeIslemleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahalar">
+              <PropertyRef Name="SahaId" />
+            </Principal>
+            <Dependent Role="OdemeIslemleri">
+              <PropertyRef Name="SahaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervasyon_SahaId">
+          <End Role="Sahalar" Type="Self.Sahalar" Multiplicity="0..1" />
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sahalar">
+              <PropertyRef Name="SahaId" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="SahaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HaliSahaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kullanicilars" EntityType="Self.Kullanicilar" />
+          <EntitySet Name="OdemeIslemleris" EntityType="Self.OdemeIslemleri" />
+          <EntitySet Name="Rezervasyons" EntityType="Self.Rezervasyon" />
+          <EntitySet Name="Sahalars" EntityType="Self.Sahalar" />
+          <AssociationSet Name="FK_OdemeIslemleri_KullaniciId" Association="Self.FK_OdemeIslemleri_KullaniciId">
+            <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdemeIslemleri_RezId" Association="Self.FK_OdemeIslemleri_RezId">
+            <End Role="Rezervasyon" EntitySet="Rezervasyons" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OdemeIslemleri_SahaId" Association="Self.FK_OdemeIslemleri_SahaId">
+            <End Role="Sahalar" EntitySet="Sahalars" />
+            <End Role="OdemeIslemleri" EntitySet="OdemeIslemleris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervasyon_SahaId" Association="Self.FK_Rezervasyon_SahaId">
+            <End Role="Sahalar" EntitySet="Sahalars" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyons" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HaliSahaDBModelStoreContainer" CdmEntityContainer="HaliSahaDBEntities">
+          <EntitySetMapping Name="Kullanicilars">
+            <EntityTypeMapping TypeName="HaliSahaDBModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciSoyadi" ColumnName="KullaniciSoyadi" />
+                <ScalarProperty Name="KullaniciEmail" ColumnName="KullaniciEmail" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OdemeIslemleris">
+            <EntityTypeMapping TypeName="HaliSahaDBModel.OdemeIslemleri">
+              <MappingFragment StoreEntitySet="OdemeIslemleri">
+                <ScalarProperty Name="OdemeIslemiId" ColumnName="OdemeIslemiId" />
+                <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+                <ScalarProperty Name="RezId" ColumnName="RezId" />
+                <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervasyons">
+            <EntityTypeMapping TypeName="HaliSahaDBModel.Rezervasyon">
+              <MappingFragment StoreEntitySet="Rezervasyon">
+                <ScalarProperty Name="RezID" ColumnName="RezID" />
+                <ScalarProperty Name="RezNotu" ColumnName="RezNotu" />
+                <ScalarProperty Name="RezDate" ColumnName="RezDate" />
+                <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sahalars">
+            <EntityTypeMapping TypeName="HaliSahaDBModel.Sahalar">
+              <MappingFragment StoreEntitySet="Sahalar">
+                <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+                <ScalarProperty Name="SahaAdı" ColumnName="SahaAdı" />
+                <ScalarProperty Name="SahaFiyati" ColumnName="SahaFiyati" />
+                <ScalarProperty Name="SahaKapasitesi" ColumnName="SahaKapasitesi" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

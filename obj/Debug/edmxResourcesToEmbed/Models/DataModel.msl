@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HaliSahaDBModelStoreContainer" CdmEntityContainer="HaliSahaDBEntities">
+    <EntitySetMapping Name="Kullanicilars">
+      <EntityTypeMapping TypeName="HaliSahaDBModel.Kullanicilar">
+        <MappingFragment StoreEntitySet="Kullanicilar">
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="KullaniciSoyadi" ColumnName="KullaniciSoyadi" />
+          <ScalarProperty Name="KullaniciEmail" ColumnName="KullaniciEmail" />
+          <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OdemeIslemleris">
+      <EntityTypeMapping TypeName="HaliSahaDBModel.OdemeIslemleri">
+        <MappingFragment StoreEntitySet="OdemeIslemleri">
+          <ScalarProperty Name="OdemeIslemiId" ColumnName="OdemeIslemiId" />
+          <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+          <ScalarProperty Name="RezId" ColumnName="RezId" />
+          <ScalarProperty Name="KullaniciId" ColumnName="KullaniciId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rezervasyons">
+      <EntityTypeMapping TypeName="HaliSahaDBModel.Rezervasyon">
+        <MappingFragment StoreEntitySet="Rezervasyon">
+          <ScalarProperty Name="RezID" ColumnName="RezID" />
+          <ScalarProperty Name="RezNotu" ColumnName="RezNotu" />
+          <ScalarProperty Name="RezDate" ColumnName="RezDate" />
+          <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sahalars">
+      <EntityTypeMapping TypeName="HaliSahaDBModel.Sahalar">
+        <MappingFragment StoreEntitySet="Sahalar">
+          <ScalarProperty Name="SahaId" ColumnName="SahaId" />
+          <ScalarProperty Name="SahaAdı" ColumnName="SahaAdı" />
+          <ScalarProperty Name="SahaFiyati" ColumnName="SahaFiyati" />
+          <ScalarProperty Name="SahaKapasitesi" ColumnName="SahaKapasitesi" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

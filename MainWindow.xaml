@@ -1,0 +1,22 @@
+﻿<Window x:Class="HaliSahaWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HaliSahaWPF"
+        mc:Ignorable="d"
+        Title="HALI SAHA YÖNETİM SİSTEMİ" Height="600" Width="1000">
+    <DockPanel>
+        <StackPanel Background="Gray" MinWidth="100">
+            <Button Name="SahaSettings" Content="Saha Ayarları" Height="50" Background="#FAA00C" Foreground="White" FontWeight="DemiBold" Click="Saha_Click"/>
+            <Button Name="RezShow" Content="Rezervasyon Ayarları" Height="50" Background="#FAA00C" Foreground="White" FontWeight="DemiBold" Click="RezShow_Click"/>
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Background="White" Grid.Row="0" Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </DockPanel>
+</Window>
